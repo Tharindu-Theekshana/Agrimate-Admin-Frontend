@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { CircleMarker, MapContainer, Popup, TileLayer } from 'react-leaflet';
 import { toast } from 'sonner';
 
-import { apiErrorMessage } from '@/api/client';
-import { adminApi, diseaseApi } from '@/api/endpoints';
+import { apiErrorMessage } from '@/api/api';
+import { adminApi } from '@/service/adminService';
+import { diseaseApi } from '@/service/diseaseService';
 import type { OutbreakPoint } from '@/api/types';
 import { diseaseColor, formatDate, prettify } from '@/lib/format';
 

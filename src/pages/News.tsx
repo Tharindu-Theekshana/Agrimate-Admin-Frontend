@@ -2,8 +2,8 @@ import { Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import { apiErrorMessage } from '@/api/client';
-import { adminApi } from '@/api/endpoints';
+import { apiErrorMessage } from '@/api/api';
+import { adminApi } from '@/service/adminService';
 import type { News as NewsItem } from '@/api/types';
 import { formatDate, resolveImageUrl } from '@/lib/format';
 

@@ -8,7 +8,6 @@ interface State {
   message?: string;
 }
 
-/** Catches render errors in a routed page so the whole admin doesn't blank out. */
 export default class ErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false };
 

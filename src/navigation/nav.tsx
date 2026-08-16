@@ -11,7 +11,6 @@ export interface NavItem {
   children?: NavChild[];
 }
 
-/** Single source of truth for sidebar nav + breadcrumbs / page titles. */
 const nav: NavItem[] = [
   {
     label: 'Monitoring',
@@ -32,7 +31,6 @@ const nav: NavItem[] = [
   },
 ];
 
-// Icons for the leaf routes (used by breadcrumb / elsewhere if needed).
 export const routeIcons: Record<string, LucideIcon> = {
   '/': MapIcon,
   '/analytics': BarChart3,

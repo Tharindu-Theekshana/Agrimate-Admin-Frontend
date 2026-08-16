@@ -1,11 +1,5 @@
-import { api } from './client';
-import type { Analytics, AuthResponse, News, OutbreakPoint, User } from './types';
-
-export const authApi = {
-  login: (identifier: string, password: string) =>
-    api.post<AuthResponse>('/api/auth/login', { identifier, password }).then((r) => r.data),
-  logout: () => api.post('/api/auth/logout').then(() => undefined),
-};
+import { api } from '@/api/api';
+import type { Analytics, News, OutbreakPoint, User } from '@/api/types';
 
 export const adminApi = {
   analytics: () => api.get<Analytics>('/api/admin/analytics').then((r) => r.data),
@@ -28,8 +22,4 @@ export const adminApi = {
 
   broadcast: (title: string, body: string, type: string) =>
     api.post<{ delivered: number }>('/api/admin/notifications', { title, body, type }).then((r) => r.data),
-};
-
-export const diseaseApi = {
-  list: () => api.get<{ diseaseKey: string; nameEn: string }[]>('/api/diseases').then((r) => r.data),
 };

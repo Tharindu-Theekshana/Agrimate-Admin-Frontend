@@ -7,8 +7,8 @@ export interface User {
   email: string;
   name: string;
   phone?: string | null;
-  role: Role;          // primary role (display)
-  roles: Role[];       // all assigned roles
+  role: Role;          
+  roles: Role[];       
   language: string;
   location?: string | null;
   agronomistStatus: AgronomistStatus;

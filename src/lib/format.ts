@@ -1,13 +1,11 @@
-import { API_BASE_URL } from '@/api/client';
+import { API_BASE_URL } from '@/constant/serviceConstant';
 
-/** Backend local images are relative (`/uploads/..`); prepend the API base for display. */
 export function resolveImageUrl(url?: string | null): string | undefined {
   if (!url) return undefined;
   if (url.startsWith('/')) return `${API_BASE_URL}${url}`;
   return url.replace(/https?:\/\/(localhost|127\.0\.0\.1):8080/, API_BASE_URL);
 }
 
-// Stable color per disease key for map pins & charts.
 const DISEASE_COLORS: Record<string, string> = {
   rice_blast: '#A32D2D',
   bacterial_leaf_blight: '#BA7517',

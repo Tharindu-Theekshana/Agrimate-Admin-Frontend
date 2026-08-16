@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
-import nav, { type NavItem } from '@/_nav';
+import nav, { type NavItem } from '@/navigation/nav';
 import { useAppSelector } from '@/store/hooks';
 
 function initials(name = '') {
@@ -20,7 +20,6 @@ export default function Sidebar() {
         'relative flex h-full flex-col border-r border-border bg-surface transition-all duration-300',
         collapsed ? 'w-[68px]' : 'w-60',
       )}>
-      {/* Brand */}
       <div className="flex h-[60px] shrink-0 items-center gap-3 border-b border-border px-3.5">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary">
           <Sprout size={18} strokeWidth={2} className="text-white" />
@@ -32,7 +31,6 @@ export default function Sidebar() {
         )}
       </div>
 
-      {/* Nav */}
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto overflow-x-hidden p-2.5">
         {nav.map((item) =>
           item.children ? (
@@ -43,7 +41,6 @@ export default function Sidebar() {
         )}
       </nav>
 
-      {/* User */}
       <div className="shrink-0 border-t border-border p-2.5">
         <div className={clsx('flex items-center gap-2.5 rounded-lg px-2 py-2', collapsed && 'justify-center')}>
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-white">

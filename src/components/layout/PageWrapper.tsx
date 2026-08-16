@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import nav from '@/_nav';
+import nav from '@/navigation/nav';
 
 function capitalize(s: string) {
   return s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
@@ -16,7 +16,6 @@ function usePageTitle() {
   return lookup[pathname] ?? capitalize(pathname.split('/').filter(Boolean).pop() ?? 'Dashboard');
 }
 
-/** Title card + content card wrapper around each routed page. */
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
   const title = usePageTitle();
   return (

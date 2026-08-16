@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { apiErrorMessage } from '@/api/client';
-import { adminApi } from '@/api/endpoints';
+import { apiErrorMessage } from '@/api/api';
+import { adminApi } from '@/service/adminService';
 import type { AgronomistStatus, User } from '@/api/types';
 
 const ROLE_FILTERS = ['', 'FARMER', 'AGRONOMIST', 'ADMIN'];

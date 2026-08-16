@@ -15,15 +15,12 @@ import storageSession from 'redux-persist/lib/storage/session';
 import authReducer from './authSlice';
 import uiReducer from './uiSlice';
 
-// Access token + user live in sessionStorage (cleared when the tab/session ends).
-// The refresh token is NOT here — it's an httpOnly cookie owned by the backend.
 const authPersistConfig = {
   key: 'agrimate-admin-auth',
   storage: storageSession,
   whitelist: ['user', 'accessToken'],
 };
 
-// UI prefs (sidebar + theme) persist across sessions in localStorage.
 const uiPersistConfig = {
   key: 'agrimate-admin-ui',
   storage,

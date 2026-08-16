@@ -2,8 +2,8 @@ import { Bell, Send } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import { apiErrorMessage } from '@/api/client';
-import { adminApi } from '@/api/endpoints';
+import { apiErrorMessage } from '@/api/api';
+import { adminApi } from '@/service/adminService';
 
 const TYPES = [
   { value: 'SYSTEM', label: 'System' },

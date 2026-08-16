@@ -1,14 +1,40 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { apiErrorMessage } from '@/api/api';
 import type { User } from '@/api/types';
+import * as authService from '@/service/authService';
 
 interface AuthState {
   user: User | null;
-  /** Access token — short-lived (15 min). Persisted to sessionStorage via redux-persist. */
   accessToken: string | null;
 }
 
 const initialState: AuthState = { user: null, accessToken: null };
+
+export const loginThunk = createAsyncThunk<
+  { user: User; accessToken: string },
+  { identifier: string; password: string },
+  { rejectValue: string }
+>('auth/login', async ({ identifier, password }, { rejectWithValue }) => {
+  let res;
+  try {
+    res = await authService.login(identifier, password);
+  } catch (e) {
+    return rejectWithValue(apiErrorMessage(e));
+  }
+  if (res.user.role !== 'ADMIN') {
+    return rejectWithValue('This dashboard is for administrators only.');
+  }
+  return { user: res.user, accessToken: res.accessToken };
+});
+
+export const logoutThunk = createAsyncThunk('auth/logout', async () => {
+  try {
+    await authService.logout();
+  } catch (e){
+    console.error(e);
+  }
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -28,6 +54,17 @@ const authSlice = createSlice({
       state.user = null;
       state.accessToken = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.accessToken = action.payload.accessToken;
+      })
+      .addCase(logoutThunk.fulfilled, (state) => {
+        state.user = null;
+        state.accessToken = null;
+      });
   },
 });
 

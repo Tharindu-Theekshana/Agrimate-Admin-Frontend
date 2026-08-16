@@ -13,8 +13,8 @@ import {
   YAxis,
 } from 'recharts';
 
-import { apiErrorMessage } from '@/api/client';
-import { adminApi } from '@/api/endpoints';
+import { apiErrorMessage } from '@/api/api';
+import { adminApi } from '@/service/adminService';
 import type { Analytics as AnalyticsData } from '@/api/types';
 import { diseaseColor, prettify } from '@/lib/format';
 

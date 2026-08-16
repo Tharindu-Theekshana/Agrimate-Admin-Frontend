@@ -9,7 +9,6 @@ import { useAppSelector } from '@/store/hooks';
 export default function App() {
   const theme = useAppSelector((s) => s.ui.theme);
 
-  // Apply the theme to <html data-theme> so the CSS variables switch.
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);

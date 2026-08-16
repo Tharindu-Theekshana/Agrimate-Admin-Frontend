@@ -12,8 +12,8 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 
-import nav from '@/_nav';
-import { useAuth } from '@/auth/useAuth';
+import nav from '@/navigation/nav';
+import { logoutThunk } from '@/store/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleSidebar, toggleTheme } from '@/store/uiSlice';
 
@@ -40,7 +40,7 @@ function useBreadcrumbs() {
 export default function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const user = useAppSelector((s) => s.auth.user);
   const theme = useAppSelector((s) => s.ui.theme);
   const collapsed = !useAppSelector((s) => s.ui.sidebarOpen);
   const crumbs = useBreadcrumbs();
@@ -57,7 +57,7 @@ export default function Header() {
 
   async function onLogout() {
     setShowUser(false);
-    await logout();
+    await dispatch(logoutThunk());
     navigate('/login', { replace: true });
   }
 
@@ -70,7 +70,6 @@ export default function Header() {
         {collapsed ? <PanelLeftOpen size={15} /> : <PanelLeftClose size={15} />}
       </button>
 
-      {/* Breadcrumb */}
       <nav className="flex flex-1 items-center gap-1.5 overflow-hidden">
         <NavLink to="/" className="shrink-0 text-ink-faint transition-colors hover:text-primary">
           <Home size={14} />
@@ -89,7 +88,6 @@ export default function Header() {
         ))}
       </nav>
 
-      {/* Actions */}
       <div className="flex shrink-0 items-center gap-2">
         <button
           onClick={() => dispatch(toggleTheme())}

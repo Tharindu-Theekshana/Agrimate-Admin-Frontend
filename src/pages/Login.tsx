@@ -2,10 +2,12 @@ import { Sprout } from 'lucide-react';
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import { useAuth } from '@/auth/useAuth';
+import { loginThunk } from '@/store/authSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 export function Login() {
-  const { login, isAuthenticated } = useAuth();
+  const dispatch = useAppDispatch();
+  const isAuthenticated = useAppSelector((s) => !!s.auth.user && !!s.auth.accessToken);
   const navigate = useNavigate();
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -19,10 +21,10 @@ export function Login() {
     setError('');
     setLoading(true);
     try {
-      await login(identifier.trim(), password);
+      await dispatch(loginThunk({ identifier: identifier.trim(), password })).unwrap();
       navigate('/', { replace: true });
     } catch (err) {
-      setError((err as Error).message);
+      setError(typeof err === 'string' ? err : 'Something went wrong');
     } finally {
       setLoading(false);
     }
