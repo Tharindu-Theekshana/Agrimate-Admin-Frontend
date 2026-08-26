@@ -108,3 +108,4 @@ th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--bo
 th { color: var(--ink-soft); font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
 
 .leaflet-container { border-radius: var(--radius); }
+.leaflet-interactive { filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45)); }

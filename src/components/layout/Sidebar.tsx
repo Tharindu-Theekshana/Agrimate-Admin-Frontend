@@ -1,8 +1,9 @@
-import { ChevronDown, Sprout } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
+import logo from '@/assets/logo.png';
 import nav, { type NavItem } from '@/navigation/nav';
 import { useAppSelector } from '@/store/hooks';
 
@@ -21,9 +22,7 @@ export default function Sidebar() {
         collapsed ? 'w-[68px]' : 'w-60',
       )}>
       <div className="flex h-[60px] shrink-0 items-center gap-3 border-b border-border px-3.5">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary">
-          <Sprout size={18} strokeWidth={2} className="text-white" />
-        </div>
+        <img src={logo} alt="AgriMate" className="h-9 w-9 shrink-0" />
         {!collapsed && (
           <span className="truncate text-[15px] font-extrabold tracking-tight text-ink">
             Agri<span className="text-primary">Mate</span>
@@ -72,7 +71,7 @@ function NavLeaf({
   return (
     <NavLink
       to={to}
-      end={to === '/'}
+      end
       title={collapsed ? label : undefined}
       className={({ isActive }) =>
         clsx(
@@ -134,7 +133,7 @@ function NavGroup({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
             <NavLink
               key={c.to}
               to={c.to}
-              end={c.to === '/'}
+              end
               className={({ isActive }) =>
                 clsx(
                   'flex items-center gap-2 rounded-md py-1.5 pl-3 pr-2.5 text-[13px] font-medium transition-colors',

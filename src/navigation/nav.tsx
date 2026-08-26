@@ -1,4 +1,4 @@
-import { BarChart3, Bell, type LucideIcon, Map as MapIcon, Newspaper, Users } from 'lucide-react';
+import { Bell, LayoutDashboard, type LucideIcon, Map as MapIcon, Newspaper, Plus, Users } from 'lucide-react';
 
 export interface NavChild {
   label: string;
@@ -12,30 +12,26 @@ export interface NavItem {
 }
 
 const nav: NavItem[] = [
-  {
-    label: 'Monitoring',
-    icon: MapIcon,
-    children: [
-      { label: 'Outbreak Map', to: '/' },
-      { label: 'Analytics', to: '/analytics' },
-    ],
-  },
+  { label: 'Dashboard', to: '/', icon: LayoutDashboard },
+  { label: 'Outbreak Map', to: '/outbreaks', icon: MapIcon },
   {
     label: 'Management',
     icon: Users,
     children: [
       { label: 'Users', to: '/users' },
       { label: 'News', to: '/news' },
+      { label: 'Add News', to: '/news/new' },
       { label: 'Send Notification', to: '/notifications' },
     ],
   },
 ];
 
 export const routeIcons: Record<string, LucideIcon> = {
-  '/': MapIcon,
-  '/analytics': BarChart3,
+  '/': LayoutDashboard,
+  '/outbreaks': MapIcon,
   '/users': Users,
   '/news': Newspaper,
+  '/news/new': Plus,
   '/notifications': Bell,
 };
 

@@ -12,17 +12,19 @@ function namedLazy<T extends string>(
   return React.lazy(() => loader().then((m) => ({ default: m[name] })));
 }
 
+const Dashboard = namedLazy(() => import('../pages/Dashboard'), 'Dashboard');
 const OutbreakMap = namedLazy(() => import('../pages/OutbreakMap'), 'OutbreakMap');
-const Analytics = namedLazy(() => import('../pages/Analytics'), 'Analytics');
 const Users = namedLazy(() => import('../pages/Users'), 'Users');
-const News = namedLazy(() => import('../pages/News'), 'News');
+const NewsList = namedLazy(() => import('../pages/NewsList'), 'NewsList');
+const NewsCreate = namedLazy(() => import('../pages/NewsCreate'), 'NewsCreate');
 const Notifications = namedLazy(() => import('../pages/Notifications'), 'Notifications');
 
 const routes: AppRoute[] = [
-  { path: '/', element: OutbreakMap },
-  { path: '/analytics', element: Analytics },
+  { path: '/', element: Dashboard },
+  { path: '/outbreaks', element: OutbreakMap },
   { path: '/users', element: Users },
-  { path: '/news', element: News },
+  { path: '/news', element: NewsList },
+  { path: '/news/new', element: NewsCreate },
   { path: '/notifications', element: Notifications },
 ];
 

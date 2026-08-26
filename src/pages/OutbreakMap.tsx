@@ -44,7 +44,6 @@ export function OutbreakMap() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* Filters */}
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
         <select value={disease} onChange={(e) => setDisease(e.target.value)}>
           <option value="">All diseases</option>
@@ -69,7 +68,6 @@ export function OutbreakMap() {
       </div>
 
 
-      {/* Legend */}
       <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
         {Object.entries(counts).map(([key, n]) => (
           <span key={key} className="badge" style={{ background: `${diseaseColor(key)}1a`, color: diseaseColor(key) }}>
@@ -79,7 +77,6 @@ export function OutbreakMap() {
         ))}
       </div>
 
-      {/* Map */}
       <div className="card" style={{ padding: 0, overflow: 'hidden', height: '70vh' }}>
         <MapContainer center={SRI_LANKA} zoom={7} style={{ height: '100%', width: '100%' }}>
           <TileLayer
@@ -91,7 +88,7 @@ export function OutbreakMap() {
               key={p.scanId}
               center={[p.latitude, p.longitude]}
               radius={9}
-              pathOptions={{ color: diseaseColor(p.disease), fillColor: diseaseColor(p.disease), fillOpacity: 0.6, weight: 2 }}>
+              pathOptions={{ color: '#ffffff', weight: 2, fillColor: diseaseColor(p.disease), fillOpacity: 0.9 }}>
               <Popup>
                 <strong>{prettify(p.disease)}</strong>
                 <br />

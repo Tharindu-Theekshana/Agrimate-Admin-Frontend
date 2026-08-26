@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/constant/serviceConstant';
 export function resolveImageUrl(url?: string | null): string | undefined {
   if (!url) return undefined;
   if (url.startsWith('/')) return `${API_BASE_URL}${url}`;
-  return url.replace(/https?:\/\/(localhost|127\.0\.0\.1):8080/, API_BASE_URL);
+  return url.replace(/https?:\/\/(localhost|127\.0\.0\.1):(8080|8081|8082)/, API_BASE_URL);
 }
 
 const DISEASE_COLORS: Record<string, string> = {

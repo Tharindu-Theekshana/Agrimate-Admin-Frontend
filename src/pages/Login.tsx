@@ -1,7 +1,7 @@
-import { Sprout } from 'lucide-react';
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import logo from '@/assets/logo.png';
 import { loginThunk } from '@/store/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
@@ -34,9 +34,7 @@ export function Login() {
     <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 20 }}>
       <form onSubmit={onSubmit} className="card" style={{ width: 360, maxWidth: '100%' }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <div style={{ width: 56, height: 56, borderRadius: 16, background: 'var(--pale)', display: 'grid', placeItems: 'center', margin: '0 auto' }}>
-            <Sprout size={30} color="var(--primary)" />
-          </div>
+          <img src={logo} alt="AgriMate" style={{ width: 64, height: 64, margin: '0 auto', display: 'block' }} />
           <h2 style={{ margin: '12px 0 2px' }}>AgriMate Admin</h2>
           <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: 14 }}>Outbreak monitoring & management</p>
         </div>
