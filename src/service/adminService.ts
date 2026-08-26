@@ -20,6 +20,6 @@ export const adminApi = {
   },
   deleteNews: (id: number) => api.delete(`/api/admin/news/${id}`).then(() => undefined),
 
-  broadcast: (title: string, body: string, type: string) =>
-    api.post<{ delivered: number }>('/api/admin/notifications', { title, body, type }).then((r) => r.data),
+  broadcast: (title: string, body: string, type: string, userId?: number) =>
+    api.post<{ delivered: number }>('/api/admin/notifications', { title, body, type, userId }).then((r) => r.data),
 };
