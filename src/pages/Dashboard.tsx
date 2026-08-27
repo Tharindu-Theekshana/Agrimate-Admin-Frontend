@@ -179,9 +179,20 @@ export function Dashboard() {
                     borderRadius: 10,
                     background: 'var(--surface-alt)',
                   }}>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: 14 }}>{u.name}</div>
-                    <div style={{ fontSize: 12, color: 'var(--ink-faint)' }}>{u.phone}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                    {u.agronomistProofUrl && (
+                      <a href={resolveImageUrl(u.agronomistProofUrl)} target="_blank" rel="noreferrer" title="View proof">
+                        <img
+                          src={resolveImageUrl(u.agronomistProofUrl)}
+                          alt="Proof"
+                          style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover', display: 'block', flexShrink: 0 }}
+                        />
+                      </a>
+                    )}
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: 14 }}>{u.name}</div>
+                      <div style={{ fontSize: 12, color: 'var(--ink-faint)' }}>{u.phone}</div>
+                    </div>
                   </div>
                   <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
                     <button className="ghost" disabled={busy === u.id} style={{ color: 'var(--primary)' }} onClick={() => decide(u.id, 'APPROVED')} title="Approve">

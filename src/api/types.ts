@@ -12,6 +12,7 @@ export interface User {
   language: string;
   location?: string | null;
   agronomistStatus: AgronomistStatus;
+  agronomistProofUrl?: string | null;
   suspended: boolean;
 }
 

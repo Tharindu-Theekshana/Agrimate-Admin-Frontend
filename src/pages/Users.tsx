@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { apiErrorMessage } from '@/api/api';
+import { resolveImageUrl } from '@/lib/format';
 import { adminApi } from '@/service/adminService';
 import type { AgronomistStatus, User } from '@/api/types';
 
@@ -60,6 +61,7 @@ export function Users() {
               <th>Role</th>
               <th>Location</th>
               <th>Agronomist status</th>
+              <th>Proof</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -81,15 +83,32 @@ export function Users() {
                   )}
                 </td>
                 <td>
+                  {u.role === 'AGRONOMIST' && u.agronomistProofUrl ? (
+                    <a href={resolveImageUrl(u.agronomistProofUrl)} target="_blank" rel="noreferrer">
+                      <img
+                        src={resolveImageUrl(u.agronomistProofUrl)}
+                        alt="Proof"
+                        style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover', display: 'block' }}
+                      />
+                    </a>
+                  ) : u.role === 'AGRONOMIST' ? (
+                    <span style={{ color: 'var(--ink-faint)', fontSize: 13 }}>None</span>
+                  ) : (
+                    '—'
+                  )}
+                </td>
+                <td>
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    {u.role === 'AGRONOMIST' && u.agronomistStatus === 'PENDING' && (
+                    {u.role === 'AGRONOMIST' && u.agronomistStatus !== 'APPROVED' && (
                       <>
                         <button className="btn" disabled={busy === u.id} onClick={() => update(u.id, { agronomistStatus: 'APPROVED' })}>
                           Approve
                         </button>
-                        <button className="secondary" disabled={busy === u.id} onClick={() => update(u.id, { agronomistStatus: 'REJECTED' })}>
-                          Reject
-                        </button>
+                        {u.agronomistStatus === 'PENDING' && (
+                          <button className="secondary" disabled={busy === u.id} onClick={() => update(u.id, { agronomistStatus: 'REJECTED' })}>
+                            Reject
+                          </button>
+                        )}
                       </>
                     )}
                     {u.role !== 'ADMIN' && (
