@@ -1,4 +1,6 @@
+import { UserPlus } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { apiErrorMessage } from '@/api/api';
@@ -16,6 +18,7 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 export function Users() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [role, setRole] = useState('');
   const [busy, setBusy] = useState<number | null>(null);
@@ -50,6 +53,9 @@ export function Users() {
           ))}
         </select>
         <span style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{users.length} users</span>
+        <button className="btn" style={{ marginLeft: 'auto' }} onClick={() => navigate('/users/new')}>
+          <UserPlus size={16} /> Create Admin
+        </button>
       </div>
 
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
@@ -71,7 +77,7 @@ export function Users() {
                 <td style={{ fontWeight: 600 }}>{u.name}</td>
                 <td>{u.phone}</td>
                 <td>{u.role}</td>
-                <td>{u.location ?? '—'}</td>
+                <td>{u.location ?? 'N/A'}</td>
                 <td>
                   {u.role === 'AGRONOMIST' ? (
                     <span className="badge" style={{ background: `${STATUS_COLOR[u.agronomistStatus]}1a`, color: STATUS_COLOR[u.agronomistStatus] }}>
@@ -79,7 +85,7 @@ export function Users() {
                       {u.agronomistStatus}
                     </span>
                   ) : (
-                    '—'
+                    'N/A'
                   )}
                 </td>
                 <td>
@@ -94,7 +100,7 @@ export function Users() {
                   ) : u.role === 'AGRONOMIST' ? (
                     <span style={{ color: 'var(--ink-faint)', fontSize: 13 }}>None</span>
                   ) : (
-                    '—'
+                    'N/A'
                   )}
                 </td>
                 <td>
