@@ -9,6 +9,8 @@ export const adminApi = {
     api.get<User[]>('/api/admin/users', { params: { role } }).then((r) => r.data),
   updateUser: (id: number, body: { agronomistStatus?: string; suspended?: boolean }) =>
     api.patch<User>(`/api/admin/users/${id}`, body).then((r) => r.data),
+  createAdmin: (body: { username: string; email: string; name: string; phone?: string; location?: string }) =>
+    api.post<User>('/api/admin/users', body).then((r) => r.data),
 
   news: () => api.get<News[]>('/api/admin/news').then((r) => r.data),
   createNews: (title: string, description: string, image: File | null) => {
