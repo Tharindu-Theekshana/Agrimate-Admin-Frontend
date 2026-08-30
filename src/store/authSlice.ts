@@ -4,7 +4,7 @@ import { apiErrorMessage } from '@/api/api';
 import type { User } from '@/api/types';
 import * as authService from '@/service/authService';
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
   accessToken: string | null;
 }

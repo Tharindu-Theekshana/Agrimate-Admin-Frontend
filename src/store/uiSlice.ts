@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export type ThemeMode = 'light' | 'dark';
 
-interface UiState {
+export interface UiState {
   sidebarOpen: boolean;
   theme: ThemeMode;
 }
