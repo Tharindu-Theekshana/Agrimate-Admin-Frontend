@@ -30,7 +30,7 @@ export function UserCreate() {
         phone: phone.trim() || undefined,
         location: location.trim() || undefined,
       });
-      toast.success(`Admin account created — login details emailed to ${created.email}`);
+      toast.success(`Admin account created - login details emailed to ${created.email}`);
       navigate('/users');
     } catch (err) {
       toast.error(apiErrorMessage(err));

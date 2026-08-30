@@ -28,6 +28,20 @@ export const loginThunk = createAsyncThunk<
   return { user: res.user, accessToken: res.accessToken };
 });
 
+export const confirmPasswordResetThunk = createAsyncThunk<
+  { user: User; accessToken: string },
+  { email: string; code: string; newPassword: string },
+  { rejectValue: string }
+>('auth/confirmPasswordReset', async ({ email, code, newPassword }, { rejectWithValue }) => {
+  let res;
+  try {
+    res = await authService.confirmPasswordReset(email, code, newPassword);
+  } catch (e) {
+    return rejectWithValue(apiErrorMessage(e));
+  }
+  return { user: res.user, accessToken: res.accessToken };
+});
+
 export const logoutThunk = createAsyncThunk('auth/logout', async () => {
   try {
     await authService.logout();
@@ -64,6 +78,10 @@ const authSlice = createSlice({
       .addCase(logoutThunk.fulfilled, (state) => {
         state.user = null;
         state.accessToken = null;
+      })
+      .addCase(confirmPasswordResetThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.accessToken = action.payload.accessToken;
       });
   },
 });

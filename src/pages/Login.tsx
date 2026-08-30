@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import logo from '@/assets/logo.png';
 import { loginThunk } from '@/store/authSlice';
@@ -53,8 +53,13 @@ export function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          style={{ width: '100%', margin: '6px 0 14px' }}
+          style={{ width: '100%', margin: '6px 0 6px' }}
         />
+        <div style={{ textAlign: 'right', marginBottom: 14 }}>
+          <Link to="/forgot-password" style={{ fontSize: 12, color: 'var(--primary)' }}>
+            Forgot password?
+          </Link>
+        </div>
 
         {error && <div style={{ color: 'var(--danger)', fontSize: 14, marginBottom: 12 }}>{error}</div>}
 

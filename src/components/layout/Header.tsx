@@ -1,6 +1,7 @@
 import {
   ChevronDown,
   Home,
+  KeyRound,
   LogOut,
   Moon,
   PanelLeftClose,
@@ -10,9 +11,12 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import clsx from 'clsx';
 
 import nav from '@/navigation/nav';
+import { apiErrorMessage } from '@/api/api';
+import * as authService from '@/service/authService';
 import { logoutThunk } from '@/store/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleSidebar, toggleTheme } from '@/store/uiSlice';
@@ -45,6 +49,7 @@ export default function Header() {
   const collapsed = !useAppSelector((s) => s.ui.sidebarOpen);
   const crumbs = useBreadcrumbs();
   const [showUser, setShowUser] = useState(false);
+  const [sendingCode, setSendingCode] = useState(false);
   const userRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,6 +64,21 @@ export default function Header() {
     setShowUser(false);
     await dispatch(logoutThunk());
     navigate('/login', { replace: true });
+  }
+
+  async function onChangePassword() {
+    if (!user?.email || sendingCode) return;
+    setSendingCode(true);
+    try {
+      await authService.requestPasswordReset(user.email);
+      toast.success('A verification code was sent to ' + user.email);
+      setShowUser(false);
+      navigate('/reset-password', { state: { email: user.email } });
+    } catch (err) {
+      toast.error(apiErrorMessage(err));
+    } finally {
+      setSendingCode(false);
+    }
   }
 
   return (
@@ -123,6 +143,12 @@ export default function Header() {
               </div>
               <button className="flex w-full items-center gap-2.5 px-4 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:bg-surface-alt hover:text-primary">
                 <User size={14} /> Profile
+              </button>
+              <button
+                onClick={onChangePassword}
+                disabled={sendingCode}
+                className="flex w-full items-center gap-2.5 px-4 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:bg-surface-alt hover:text-primary disabled:opacity-60">
+                <KeyRound size={14} /> {sendingCode ? 'Sending code…' : 'Change password'}
               </button>
               <div className="border-t border-border">
                 <button
